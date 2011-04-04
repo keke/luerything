@@ -2,8 +2,29 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
-  <!--<bean id="mainApp"></bean>-->
-  <bean id="staticApp" class="org.restlet.Application">
+  <bean name="abstractApp" class="org.restlet.Application" abstract="true">
+    <property name="metadataService.defaultCharacterSet">
+      <util:constant static-field="org.restlet.data.CharacterSet.UTF_8"/>
+    </property>
+    <property name="metadataService.defaultEncoding">
+      <util:constant static-field="org.restlet.data.Encoding.GZIP"/>
+    </property>
+    <property name="encoderService.enabled" value="true"/>
+  </bean>
+
+  <bean id="mainApp" parent="abstractApp">
+    <lookup-method name="createInboundRoot" bean="mainRoot"/>
+  </bean>
+  <bean id="mainRoot" class="org.restlet.ext.spring.SpringRouter" lazy-init="true">
+    <constructor-arg ref="mainApp"/>
+    <property name="defaultAttachment">
+      <bean class="net.luerything.web.page.Home">
+        <constructor-arg value="home.vt"/>
+        <constructor-arg ref="velocityEngine"/>
+      </bean>
+    </property>
+  </bean>
+  <bean id="staticApp" parent="abstractApp">
     <lookup-method name="createInboundRoot" bean="staticRoot"/>
   </bean>
   <util:property-path path="staticApp.context" id="staticAppContext"/>

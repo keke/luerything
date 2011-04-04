@@ -17,27 +17,27 @@
     <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
   </listener>
 
-  <!--<servlet>-->
-    <!--<servlet-name>appServlet</servlet-name>-->
-    <!--<servlet-class>org.restlet.ext.spring.SpringServerServlet</servlet-class>-->
-    <!--<init-param>-->
-      <!--<param-name>org.restlet.application</param-name>-->
-      <!--<param-value>mainApp</param-value>-->
-    <!--</init-param>-->
-    <!--<init-param>-->
-      <!--<param-name>org.restlet.autoWire</param-name>-->
-      <!--<param-value>true</param-value>-->
-    <!--</init-param>-->
-    <!--<init-param>-->
-      <!--<param-name>org.restlet.clients</param-name>-->
-      <!--<param-value>CLAP,FILE,HTTP</param-value>-->
-    <!--</init-param>-->
-  <!--</servlet>-->
+  <servlet>
+    <servlet-name>appServlet</servlet-name>
+    <servlet-class>org.restlet.ext.spring.SpringServerServlet</servlet-class>
+    <init-param>
+      <param-name>org.restlet.application</param-name>
+      <param-value>mainApp</param-value>
+    </init-param>
+    <init-param>
+      <param-name>org.restlet.autoWire</param-name>
+      <param-value>true</param-value>
+    </init-param>
+    <init-param>
+      <param-name>org.restlet.clients</param-name>
+      <param-value>CLAP FILE HTTP</param-value>
+    </init-param>
+  </servlet>
 
-  <!--<servlet-mapping>-->
-    <!--<servlet-name>appServlet</servlet-name>-->
-    <!--<url-pattern>/a/*</url-pattern>-->
-  <!--</servlet-mapping>-->
+  <servlet-mapping>
+    <servlet-name>appServlet</servlet-name>
+    <url-pattern>/app/*</url-pattern>
+  </servlet-mapping>
 
   <servlet>
     <servlet-name>staticServlet</servlet-name>
@@ -60,10 +60,9 @@
     <servlet-name>staticServlet</servlet-name>
     <url-pattern>/_s/*</url-pattern>
   </servlet-mapping>
-  <servlet-mapping>
-    <servlet-name>staticServlet</servlet-name>
-    <url-pattern>/static/*</url-pattern>
-  </servlet-mapping>
 
-
+  <env-entry>
+    <env-entry-name>org.restlet.engine.loggerFacadeClass</env-entry-name>
+    <env-entry-value>org.restlet.ext.slf4j.Slf4jLoggerFacade</env-entry-value>
+  </env-entry>
 </web-app>

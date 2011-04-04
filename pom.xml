@@ -76,6 +76,15 @@
               <maxIdleTime>60000</maxIdleTime>
             </connector>
           </connectors>
+          <scanTargetPatterns>
+            <scanTargetPattern>
+              <directory>src/main/webapp/WEB-INF/spring</directory>
+              <includes>
+                <include>**/*.xml</include>
+                <include>**/*.properties</include>
+              </includes>
+            </scanTargetPattern>
+          </scanTargetPatterns>
           <scanIntervalSeconds>10</scanIntervalSeconds>
           <webAppConfig>
             <contextPath>/luerything</contextPath>
@@ -246,6 +255,13 @@
           <groupId>commons-logging</groupId>
         </exclusion>
       </exclusions>
+    </dependency>
+    <!-- provided -->
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>servlet-api</artifactId>
+      <version>2.5</version>
+      <scope>provided</scope>
     </dependency>
     <!-- runtime -->
     <dependency>
