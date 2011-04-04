@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+         id="Luerything_Web_APP" version="2.5">
+  <description>Luerything Web App</description>
+  <display-name>Luerything</display-name>
+  <context-param>
+    <param-name>contextConfigLocation</param-name>
+    <param-value>WEB-INF/spring/*.xml</param-value>
+  </context-param>
+  <context-param>
+    <param-name>log4jConfigLocation</param-name>
+    <param-value>/log4j.properties</param-value>
+  </context-param>
+  <listener>
+    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+  </listener>
+
+  <!--<servlet>-->
+    <!--<servlet-name>appServlet</servlet-name>-->
+    <!--<servlet-class>org.restlet.ext.spring.SpringServerServlet</servlet-class>-->
+    <!--<init-param>-->
+      <!--<param-name>org.restlet.application</param-name>-->
+      <!--<param-value>mainApp</param-value>-->
+    <!--</init-param>-->
+    <!--<init-param>-->
+      <!--<param-name>org.restlet.autoWire</param-name>-->
+      <!--<param-value>true</param-value>-->
+    <!--</init-param>-->
+    <!--<init-param>-->
+      <!--<param-name>org.restlet.clients</param-name>-->
+      <!--<param-value>CLAP,FILE,HTTP</param-value>-->
+    <!--</init-param>-->
+  <!--</servlet>-->
+
+  <!--<servlet-mapping>-->
+    <!--<servlet-name>appServlet</servlet-name>-->
+    <!--<url-pattern>/a/*</url-pattern>-->
+  <!--</servlet-mapping>-->
+
+  <servlet>
+    <servlet-name>staticServlet</servlet-name>
+    <servlet-class>org.restlet.ext.spring.SpringServerServlet</servlet-class>
+    <init-param>
+      <param-name>org.restlet.application</param-name>
+      <param-value>staticApp</param-value>
+    </init-param>
+    <init-param>
+      <param-name>org.restlet.autoWire</param-name>
+      <param-value>true</param-value>
+    </init-param>
+    <init-param>
+      <param-name>org.restlet.clients</param-name>
+      <param-value>CLAP FILE</param-value>
+    </init-param>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>staticServlet</servlet-name>
+    <url-pattern>/_s/*</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>staticServlet</servlet-name>
+    <url-pattern>/static/*</url-pattern>
+  </servlet-mapping>
+
+
+</web-app>

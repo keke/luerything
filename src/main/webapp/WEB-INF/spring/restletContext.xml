@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+  <!--<bean id="mainApp"></bean>-->
+  <bean id="staticApp" class="org.restlet.Application">
+    <lookup-method name="createInboundRoot" bean="staticRoot"/>
+  </bean>
+  <util:property-path path="staticApp.context" id="staticAppContext"/>
+  <bean id="staticRoot" class="org.restlet.ext.spring.SpringRouter" lazy-init="true">
+    <constructor-arg ref="staticApp"/>
+    <property name="defaultAttachment">
+      <bean class="org.restlet.resource.Directory">
+        <constructor-arg ref="staticAppContext"/>
+        <constructor-arg value="WAR:///static/"/>
+      </bean>
+    </property>
+  </bean>
+</beans>
