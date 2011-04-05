@@ -6,9 +6,9 @@
     <property name="metadataService.defaultCharacterSet">
       <util:constant static-field="org.restlet.data.CharacterSet.UTF_8"/>
     </property>
-    <property name="metadataService.defaultEncoding">
-      <util:constant static-field="org.restlet.data.Encoding.GZIP"/>
-    </property>
+    <!--<property name="metadataService.defaultEncoding">-->
+      <!--<util:constant static-field="org.restlet.data.Encoding.GZIP"/>-->
+    <!--</property>-->
     <property name="encoderService.enabled" value="true"/>
   </bean>
 
@@ -19,8 +19,9 @@
     <constructor-arg ref="mainApp"/>
     <property name="defaultAttachment">
       <bean class="net.luerything.web.page.Home">
-        <constructor-arg value="home.vt"/>
+        <constructor-arg value="common.vt"/>
         <constructor-arg ref="velocityEngine"/>
+        <constructor-arg ref="messageSource"/>
       </bean>
     </property>
   </bean>
