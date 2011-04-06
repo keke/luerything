@@ -1,0 +1,1 @@
+<title>$messageSource.getMessage("home.title",null, $locale)</title>
