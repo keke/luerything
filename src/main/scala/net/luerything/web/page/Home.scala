@@ -21,6 +21,6 @@ trait CommonModel extends PageSupport {
 
   override abstract def model: Map[String, Object] = {
     Map("ctxRoot" -> Request.getCurrent.getRootRef.getParentRef.toString,
-      "messageSource" -> messageSource)
+      "messageSource" -> messageSource, "debug" -> true.asInstanceOf[AnyRef])
   }
 }

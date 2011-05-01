@@ -3,6 +3,11 @@
 <head>
   <meta charset="utf-8"/>
   #parse($headPart)
+  <script>
+      #if ($debug)
+      var __debug = true;
+      #end
+  </script>
 </head>
 <body>
   #parse($bodyPart)
@@ -10,7 +15,21 @@
 <script>
   ##  common scripts
   yepnope([
-    'css!${ctxRoot}_s/css/luerything.css'
+    '${ctxRoot}_s/css/luerything.css',
+    'http://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js',
+    {
+      load:'${ctxRoot}_s/js/boot.js',
+      callback:function(url, result, key) {
+        yepnope([
+          #if($debug)
+            { load:'${ctxRoot}_s/js/logimpl.js'},
+          #end
+          {
+            load:'${ctxRoot}_s/js/luerything.js'
+          }
+        ])
+      }
+    }
   ]);
 </script>
   #parse($scriptPart)
