@@ -1,9 +1,14 @@
 (function() {
   if (!!luerything && !!luerything.logger) {
     var logImpl = {
-      log:function(msg) {
+      log:function() {
         if (!!window.console) {
-          window.console.log(msg);
+          if (!!window.console.log.apply) {
+            window.console.log.apply(window.console, arguments);
+          }
+          else {
+            window.console.log(arguments[0]);
+          }
         }
       }
     };

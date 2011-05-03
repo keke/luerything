@@ -17,6 +17,11 @@
       <id>restlet</id>
       <url>http://maven.restlet.org</url>
     </repository>
+    <repository>
+      <id>scala-tools.org</id>
+      <name>releases</name>
+      <url>http://scala-tools.org/repo-releases</url>
+    </repository>
   </repositories>
   <pluginRepositories>
     <pluginRepository>
@@ -41,20 +46,21 @@
     <maven.compile.source>1.7</maven.compile.source>
     <maven.compile.target>1.7</maven.compile.target>
     <scala.version>2.8.1</scala.version>
-    <restlet.version>2.1-M3</restlet.version>
+    <restlet.version>2.1-M4</restlet.version>
     <spring.version>3.0.5.RELEASE</spring.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <slf4j.version>1.6.1</slf4j.version>
     <restlet.type>org.restlet.jee</restlet.type>
     <lucene.version>3.1.0</lucene.version>
     <jetty.version>7.3.1.v20110307</jetty.version>
+    <maven.scala.version>2.15.2</maven.scala.version>
   </properties>
   <build>
     <plugins>
       <plugin>
         <groupId>org.scala-tools</groupId>
         <artifactId>maven-scala-plugin</artifactId>
-        <version>2.15.1</version>
+        <version>${maven.scala.version}</version>
         <executions>
           <execution>
             <goals>
@@ -108,7 +114,7 @@
       <plugin>
         <groupId>org.scala-tools</groupId>
         <artifactId>maven-scala-plugin</artifactId>
-        <version>2.15.1</version>
+        <version>${maven.scala.version}</version>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -281,6 +287,12 @@
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>4.8.1</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.specs2</groupId>
+      <artifactId>specs2_2.8.1</artifactId>
+      <version>1.2</version>
       <scope>test</scope>
     </dependency>
   </dependencies>

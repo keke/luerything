@@ -2,29 +2,41 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+  <!--
+  Abstract definition of Restlet Application
+  -->
   <bean name="abstractApp" class="org.restlet.Application" abstract="true">
     <property name="metadataService.defaultCharacterSet">
       <util:constant static-field="org.restlet.data.CharacterSet.UTF_8"/>
     </property>
-    <!--<property name="metadataService.defaultEncoding">-->
-      <!--<util:constant static-field="org.restlet.data.Encoding.GZIP"/>-->
-    <!--</property>-->
     <property name="encoderService.enabled" value="true"/>
+    <property name="tunnelService.extensionsTunnel" value="true"/>
+  </bean>
+  <!-- Main Application -->
+  <bean id="mainApp" parent="abstractApp">
+    <lookup-method name="createInboundRoot" bean="mainRouter"/>
   </bean>
 
-  <bean id="mainApp" parent="abstractApp">
-    <lookup-method name="createInboundRoot" bean="mainRoot"/>
+  <bean id="mainRouter" class="net.luerything.web.filter.AppendSlashFilter">
+    <constructor-arg value="#{mainApp.context}"/>
+    <constructor-arg ref="mainRoot"/>
   </bean>
   <bean id="mainRoot" class="org.restlet.ext.spring.SpringRouter" lazy-init="true">
     <constructor-arg ref="mainApp"/>
-    <property name="defaultAttachment">
-      <bean class="net.luerything.web.page.Home">
-        <constructor-arg value="common.vt"/>
-        <constructor-arg ref="velocityEngine"/>
-        <constructor-arg ref="messageSource"/>
-      </bean>
+    <property name="attachments">
+      <map>
+        <entry key="/">
+          <bean class="net.luerything.web.page.Home">
+            <constructor-arg value="common.vt"/>
+            <constructor-arg ref="velocityEngine"/>
+            <constructor-arg ref="messageSource"/>
+          </bean>
+        </entry>
+      </map>
     </property>
   </bean>
+
+  <!-- Static resource application -->
   <bean id="staticApp" parent="abstractApp">
     <lookup-method name="createInboundRoot" bean="staticRoot"/>
   </bean>

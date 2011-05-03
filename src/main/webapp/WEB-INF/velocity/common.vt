@@ -1,36 +1,71 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="utf-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   #parse($headPart)
-  <script>
+  <script type="text/javascript" src="${ctxRoot}_s/js/modernizer/modernizr.custom.js"></script>
+  <script type="text/javascript">
+    window.config = {
       #if ($debug)
-      var __debug = true;
+        __debug:true,
       #end
+      ctxRoot: "$ctxRoot",
+      appRoot:"$appRoot"
+    }
   </script>
 </head>
 <body>
   #parse($bodyPart)
-<script src="${ctxRoot}_s/js/yepnope.1.0.1-min.js"></script>
+
 <script>
   ##  common scripts
   yepnope([
     '${ctxRoot}_s/css/luerything.css',
     'http://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js',
     {
-      load:'${ctxRoot}_s/js/boot.js',
-      callback:function(url, result, key) {
-        yepnope([
-          #if($debug)
-            { load:'${ctxRoot}_s/js/logimpl.js'},
-          #end
-          {
-            load:'${ctxRoot}_s/js/luerything.js'
-          }
-        ])
+      test:window.JSON,
+      nope:"${ctxRoot}_s/js/history.js/compressed/json2.js"
+    },
+    '${ctxRoot}_s/js/history.js/compressed/amplify.store.js',
+    #if($debug)
+      "${ctxRoot}_s/js/history.js/uncompressed/history.adapter.jquery.js",
+    #else
+      "${ctxRoot}_s/js/history.js/compressed/history.adapter.jquery.js",
+    #end
+    {
+      test:Modernizr.history,
+    yep:
+      #if($debug)
+          "${ctxRoot}_s/js/history.js/uncompressed/history.js",
+      #else
+        "${ctxRoot}_s/js/history.js/compressed/history.js",
+      #end
+    nope:
+      #if($debug)
+          [ '${ctxRoot}_s/js/history.js/uncompressed/history.js',
+            '${ctxRoot}_s/js/history.js/uncompressed/history.html4.js']
+      #else
+          ['${ctxRoot}_s/js/history.js/compressed/history.js',
+          '${ctxRoot}_s/js/history.js/compressed/history.html4.js']
+      #end
+    },
+    {
+      test:Modernizr.input.placeholder,
+      nope:"http://html5form.googlecode.com/svn/trunk/jquery.html5form-min.js",
+      callback:function() {
+        $(function() {
+          $('form').html5form();
+        });
       }
-    }
-  ]);
+    },
+    '${ctxRoot}_s/js/boot.js',
+    #if($debug)
+      '${ctxRoot}_s/js/logimpl.js',
+    #end
+    '${ctxRoot}_s/js/luerything.js'
+  ])
+      ;
 </script>
   #parse($scriptPart)
 </body>

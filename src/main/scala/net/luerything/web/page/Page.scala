@@ -9,14 +9,13 @@ import org.restlet.data.{Method, MediaType}
 /**
  * @author keke
  */
-
 trait PageSupport {
 
   import scala.collection.JavaConverters.asJavaMapConverter
 
   val ve: VelocityEngine
   val pageName: String
-
+  import scala.collection.mutable.Map
   def model: Map[String, Object] = Map.empty
 
   def getPageRepresentation: Representation = {
@@ -24,6 +23,9 @@ trait PageSupport {
   }
 }
 
+/**
+ * @author keke
+ */
 abstract class Page extends Restlet with PageSupport {
   override def handle(request: Request, response: Response) {
     super.handle(request, response)
