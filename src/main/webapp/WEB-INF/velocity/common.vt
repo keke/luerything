@@ -4,26 +4,28 @@
   <meta charset="utf-8"/>
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   #parse($headPart)
+  <link rel="stylesheet" type="text/css" href="${ctxRoot}_s/css/luerything.css"/>
+##  <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.12/themes/ui-lightness/jquery-ui.css"/>
   <script type="text/javascript" src="${ctxRoot}_s/js/modernizer/modernizr.custom.js"></script>
   <script type="text/javascript">
     window.config = {
       #if ($debug)
-        __debug:true,
+        debug:true,
       #end
       ctxRoot: "$ctxRoot",
       appRoot:"$appRoot"
     }
   </script>
 </head>
-<body>
+<body class="noscroll">
   #parse($bodyPart)
 
 <script>
   ##  common scripts
   yepnope([
-    '${ctxRoot}_s/css/luerything.css',
     'http://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js',
-    {
+ ##   'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.12/jquery-ui.min.js',
+ #*    {
       test:window.JSON,
       nope:"${ctxRoot}_s/js/history.js/compressed/json2.js"
     },
@@ -33,39 +35,35 @@
     #else
       "${ctxRoot}_s/js/history.js/compressed/history.adapter.jquery.js",
     #end
-    {
-      test:Modernizr.history,
-    yep:
-      #if($debug)
-          "${ctxRoot}_s/js/history.js/uncompressed/history.js",
-      #else
-        "${ctxRoot}_s/js/history.js/compressed/history.js",
-      #end
-    nope:
-      #if($debug)
-          [ '${ctxRoot}_s/js/history.js/uncompressed/history.js',
-            '${ctxRoot}_s/js/history.js/uncompressed/history.html4.js']
-      #else
-          ['${ctxRoot}_s/js/history.js/compressed/history.js',
-          '${ctxRoot}_s/js/history.js/compressed/history.html4.js']
-      #end
-    },
+     {
+   test:Modernizr.history,
+ yep:
+   #if($debug)
+       "${ctxRoot}_s/js/history.js/uncompressed/history.js",
+   #else
+     "${ctxRoot}_s/js/history.js/compressed/history.js",
+   #end
+ nope:
+   #if($debug)
+       [ '${ctxRoot}_s/js/history.js/uncompressed/history.js',
+         '${ctxRoot}_s/js/history.js/uncompressed/history.html4.js']
+   #else
+       ['${ctxRoot}_s/js/history.js/compressed/history.js',
+       '${ctxRoot}_s/js/history.js/compressed/history.html4.js']
+   #end
+ }, *#
     {
       test:Modernizr.input.placeholder,
       nope:"http://html5form.googlecode.com/svn/trunk/jquery.html5form-min.js",
-      callback:function() {
-        $(function() {
-          $('form').html5form();
-        });
-      }
     },
-    '${ctxRoot}_s/js/boot.js',
+    '${ctxRoot}_s/js/luerything.boot.js',
     #if($debug)
-      '${ctxRoot}_s/js/logimpl.js',
+      '${ctxRoot}_s/js/luerything.logimpl.js',
+      '${ctxRoot}_s/js/luerything.main.js'
+    #else
+      '${ctxRoot}_s/js/luerything.all.min.js'
     #end
-    '${ctxRoot}_s/js/luerything.js'
-  ])
-      ;
+  ]);
 </script>
   #parse($scriptPart)
 </body>

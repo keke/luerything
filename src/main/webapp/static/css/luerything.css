@@ -1,2 +1,59 @@
-.main {
+body {
+  margin: 0;
+  padding: 0;
+  border: 0;
 }
+
+.noscroll {
+  overflow: hidden;
+}
+
+#header {
+  height: 95px;
+}
+
+#header #sbar {
+  float: right;
+}
+
+#searchbar {
+  float: right;
+}
+
+.clear {
+  clear: both;
+}
+
+.hidden {
+  display: none;
+}
+
+#main {
+  min-height: 470px;
+  min-width: 400px;
+}
+
+#main .panel {
+  height: 100%;
+  float: left;
+  overflow: hidden;
+}
+
+.panel .inner {
+  height: auto;
+  width: auto;
+  overflow: auto;
+}
+
+#nav-panel {
+  width: 25%;
+}
+
+#list-panel {
+  width: 35%;
+}
+
+#detail-panel {
+  width: 40%
+}
+
