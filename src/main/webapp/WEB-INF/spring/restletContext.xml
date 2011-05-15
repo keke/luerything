@@ -21,26 +21,50 @@
     <constructor-arg value="#{mainApp.context}"/>
     <constructor-arg ref="mainRoot"/>
   </bean>
-  <bean id="mainRoot" class="org.restlet.ext.spring.SpringRouter" lazy-init="true">
+
+  <bean id="mainRoot" class="org.restlet.ext.spring.SpringRouter" depends-on="mainApp">
     <constructor-arg ref="mainApp"/>
     <property name="attachments">
       <map>
         <entry key="/">
           <bean class="net.luerything.web.page.Home">
-            <constructor-arg value="common.vt"/>
+            <constructor-arg value="home.vt"/>
             <constructor-arg ref="velocityEngine"/>
             <constructor-arg ref="messageSource"/>
+          </bean>
+        </entry>
+        <entry key="/update-all/">
+          <bean class="org.restlet.ext.spring.SpringFinder">
+            <lookup-method name="create" bean="updateAllResource"/>
+          </bean>
+        </entry>
+        <entry key="/nav/">
+          <bean class="org.restlet.ext.spring.SpringFinder">
+            <lookup-method name="create" bean="navResource"/>
+          </bean>
+        </entry>
+        <entry key="/search/">
+          <bean class="org.restlet.ext.spring.SpringFinder">
+            <lookup-method name="create" bean="searchResource"/>
           </bean>
         </entry>
       </map>
     </property>
   </bean>
-
+  <bean id="updateAllResource" class="net.luerything.web.resource.UpdateResource" scope="prototype">
+    <constructor-arg ref="updater"/>
+    <constructor-arg ref="stateService"/>
+  </bean>
+  <bean id="navResource" class="net.luerything.web.resource.NavResource" scope="prototype"/>
+  <bean id="searchResource" class="net.luerything.web.resource.SearchResource" scope="prototype">
+    <constructor-arg ref="docDao"/>
+  </bean>
   <!-- Static resource application -->
   <bean id="staticApp" parent="abstractApp">
     <lookup-method name="createInboundRoot" bean="staticRoot"/>
   </bean>
   <util:property-path path="staticApp.context" id="staticAppContext"/>
+
   <bean id="staticRoot" class="org.restlet.ext.spring.SpringRouter" lazy-init="true">
     <constructor-arg ref="staticApp"/>
     <property name="defaultAttachment">
@@ -50,4 +74,6 @@
       </bean>
     </property>
   </bean>
+
+
 </beans>

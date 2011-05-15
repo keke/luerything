@@ -9,10 +9,6 @@
     <param-name>contextConfigLocation</param-name>
     <param-value>WEB-INF/spring/*.xml</param-value>
   </context-param>
-  <context-param>
-    <param-name>log4jConfigLocation</param-name>
-    <param-value>/log4j.properties</param-value>
-  </context-param>
   <listener>
     <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
   </listener>
@@ -60,9 +56,4 @@
     <servlet-name>staticServlet</servlet-name>
     <url-pattern>/_s/*</url-pattern>
   </servlet-mapping>
-
-  <env-entry>
-    <env-entry-name>org.restlet.engine.loggerFacadeClass</env-entry-name>
-    <env-entry-value>org.restlet.ext.slf4j.Slf4jLoggerFacade</env-entry-value>
-  </env-entry>
 </web-app>

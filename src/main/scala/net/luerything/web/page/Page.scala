@@ -11,11 +11,13 @@ import org.restlet.data.{Method, MediaType}
  */
 trait PageSupport {
 
-  import scala.collection.JavaConverters.asJavaMapConverter
+  import scala.collection.JavaConverters._
 
   val ve: VelocityEngine
   val pageName: String
+
   import scala.collection.mutable.Map
+
   def model: Map[String, Object] = Map.empty
 
   def getPageRepresentation: Representation = {

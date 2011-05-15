@@ -10,7 +10,7 @@ object HistoryQueries {
   private val FindNameAndQueries = """(\w+):(.*)""".r
   private val FindQueries = "([^|=]+)=([^|=]+)".r
 
-  import scala.collection.JavaConverters.asJavaMapConverter
+  import scala.collection.JavaConverters._
 
   case class QueryElem(service: String, queries: ju.Map[String, List[String]])
 

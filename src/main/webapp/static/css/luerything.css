@@ -1,23 +1,5 @@
 body {
-  margin: 0;
-  padding: 0;
-  border: 0;
-}
-
-.noscroll {
-  overflow: hidden;
-}
-
-#header {
-  height: 95px;
-}
-
-#header #sbar {
-  float: right;
-}
-
-#searchbar {
-  float: right;
+  margin: 0px;
 }
 
 .clear {
@@ -28,32 +10,10 @@ body {
   display: none;
 }
 
-#main {
-  min-height: 470px;
-  min-width: 400px;
+.click {
+  cursor: pointer;
 }
 
-#main .panel {
-  height: 100%;
-  float: left;
-  overflow: hidden;
+#topbar > * {
+  float: right;
 }
-
-.panel .inner {
-  height: auto;
-  width: auto;
-  overflow: auto;
-}
-
-#nav-panel {
-  width: 25%;
-}
-
-#list-panel {
-  width: 35%;
-}
-
-#detail-panel {
-  width: 40%
-}
-

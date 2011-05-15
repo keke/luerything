@@ -6,7 +6,7 @@ import org.restlet.{Response, Request, Context, Restlet}
 import org.slf4j.LoggerFactory
 
 /**
- *
+ * @author keke
  */
 class AppendSlashFilter(ctx: Context, next: Restlet) extends Filter(ctx, next) {
   private val log = LoggerFactory.getLogger(classOf[AppendSlashFilter])

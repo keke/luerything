@@ -15,4 +15,14 @@
     </property>
     <property name="defaultEncoding" value="UTF-8"/>
   </bean>
+  <bean id="updater" class="net.luerything.update.UpdateFolder">
+    <constructor-arg ref="docDao"/>
+  </bean>
+  <bean id="docDao" class="net.luerything.doc.neo4j.Neo4jDocDao">
+    <constructor-arg ref="gdb"/>
+  </bean>
+  <bean id="stateService" class="net.luerything.web.state.impl.SessionStateService"/>
+  <bean id="gdb" class="org.neo4j.kernel.EmbeddedGraphDatabase" destroy-method="shutdown">
+    <constructor-arg value="./data/graph/db"/>
+  </bean>
 </beans>

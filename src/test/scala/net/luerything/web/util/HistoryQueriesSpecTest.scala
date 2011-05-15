@@ -7,6 +7,7 @@ import org.specs2.mutable.SpecificationWithJUnit
  */
 
 class HistoryQueriesSpecTest extends SpecificationWithJUnit {
+  import scala.collection.JavaConversions._
   "HistoryQueries" should {
     "parse a query : name:a=b|c=d|a=a" in {
       val r = HistoryQueries("name:a=b|c=d|a=a")
