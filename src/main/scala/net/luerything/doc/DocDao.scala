@@ -12,4 +12,6 @@ trait DocDao {
   def save(doc: Doc): DocDao
 
   def searchByTitle(name: String, offset: Int, length: Int): List[Doc]
+
+  def getDocById(id: Long): Option[Doc]
 }

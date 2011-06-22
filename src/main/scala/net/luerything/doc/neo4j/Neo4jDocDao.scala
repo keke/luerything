@@ -23,9 +23,11 @@ class Neo4jDocDao(gdb: GraphDatabaseService) extends DocDao {
       node.setProperty("uri", doc.uri.toString)
       node.setProperty("lastModified", doc.lastModified)
       node.setProperty("name", doc.name)
+      node.setProperty("ext", doc.ext)
       doc.id = node.getId
       docIndex.add(node, "uri", node.getProperty("uri"))
       docIndex.add(node, "name", node.getProperty("name"))
+      docIndex.add(node, "ext", node.getProperty("ext"))
       tx.success
     }
     this
@@ -44,7 +46,8 @@ class Neo4jDocDao(gdb: GraphDatabaseService) extends DocDao {
     new Doc(node.getId,
       node.getProperty("lastModified").asInstanceOf[Long],
       new URI(node.getProperty("uri").asInstanceOf[String]),
-      node.getProperty("name").asInstanceOf[String])
+      node.getProperty("name").asInstanceOf[String],
+      node.getProperty("ext").asInstanceOf[String])
   }
 
   def searchByTitle(name: String, offset: Int, length: Int) = {
@@ -52,5 +55,9 @@ class Neo4jDocDao(gdb: GraphDatabaseService) extends DocDao {
     ultimately(hits.close) apply {
       hits.drop(offset).take(length).toList.map(nodeToDoc)
     }
+  }
+
+  def getDocById(id: Long) = {
+    Option(gdb.getNodeById(id)).map(nodeToDoc)
   }
 }

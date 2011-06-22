@@ -9,6 +9,7 @@ yepnope(
         test:Modernizr.input.placeholder,
         nope:"http://html5form.googlecode.com/svn/trunk/jquery.html5form-min.js"
       },
+      'http://ajax.microsoft.com/ajax/jquery.templates/beta1/jquery.tmpl.min.js',
       {
         test:config.debug,
         yep:config.ctxRoot + '_s/js/luerything.js',

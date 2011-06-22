@@ -17,6 +17,14 @@ $(function() {
     });
   };
 
+  var $list = $('#list');
+  var listEntryTemplate = $('#list-entry-template').template();
+  var updateList = function(data) {
+    $list.find('*').die('click');
+    $list.empty();
+    $.tmpl(listEntryTemplate, data).appendTo($list);
+  }
+
   $('#update-all').click(function() {
     $.post(config.appRoot + '/update-all/');
   });
@@ -24,9 +32,14 @@ $(function() {
   $('#searchbar > form').submit(function() {
     var query = $(this).find('input[name=q]').val();
     $.getJSON(config.appRoot + '/search/', {q:query}, function(data) {
-
+      updateList(data);
     });
     return false;
+  });
+
+  $('#list .item .title').live('click', function(e) {
+    var id = $(this).parents('.item').attr('id').split('-')[1];
+    $.post(config.appRoot + '/doc/' + id + '/?open');
   });
   log('loaded');
   //$(window).resize(adjustMainHeight);

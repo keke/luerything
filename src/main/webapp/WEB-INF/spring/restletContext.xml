@@ -48,8 +48,16 @@
             <lookup-method name="create" bean="searchResource"/>
           </bean>
         </entry>
+        <entry key="/doc/{id}/">
+          <bean class="org.restlet.ext.spring.SpringFinder">
+            <lookup-method name="create" bean="docResource"/>
+          </bean>
+        </entry>
       </map>
     </property>
+  </bean>
+  <bean id="docResource" class="net.luerything.web.resource.DocResource" scope="prototype">
+    <constructor-arg ref="docDao"/>
   </bean>
   <bean id="updateAllResource" class="net.luerything.web.resource.UpdateResource" scope="prototype">
     <constructor-arg ref="updater"/>

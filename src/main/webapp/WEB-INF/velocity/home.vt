@@ -13,6 +13,15 @@
       appRoot:"$appRoot"
     }
   </script>
+
+## templates
+
+  <script id="list-entry-template" type="text/x-jquery-tmpl">
+    <div class="item" id="item-${id}">
+      <div class="title click">${name}</div>
+    </div>
+  </script>
+
 </head>
 <body>
 <div id="head">

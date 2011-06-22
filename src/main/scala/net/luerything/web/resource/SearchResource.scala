@@ -20,6 +20,7 @@ class SearchResource(docDao: DocDao) extends ServerResource {
         val o = new JSONObject
         o.put("name", b.name)
         o.put("id", b.id)
+        o.put("ext", b.ext)
         a.put(o)
     }
   }
