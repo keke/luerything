@@ -1,12 +1,12 @@
-apply plugin: 'java'
+apply from: 'gradle/extra-tasks.gradle'
 
-sourceCompatibility = 1.7
-version = '1.0'
-
-repositories {
+allprojects {
+  apply plugin: 'eclipse'
+  apply plugin: 'idea'
+  repositories {
     mavenCentral()
+  }
 }
+subprojects {
 
-dependencies {
-    testCompile group: 'junit', name: 'junit', version: '4.11'
 }
