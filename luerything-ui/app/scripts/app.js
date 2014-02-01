@@ -1,6 +1,11 @@
 'use strict';
 
-angular.module('luerythingUiApp', [])
+angular.module('luerythingUiApp', [
+  'ngCookies',
+  'ngResource',
+  'ngSanitize',
+  'ngRoute'
+])
   .config(function ($routeProvider) {
     $routeProvider
       .when('/', {
