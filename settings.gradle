@@ -1,4 +1,0 @@
-rootProject.name = 'luerything'
-
-include 'luerything-ui'
-include 'luerything-platform'
