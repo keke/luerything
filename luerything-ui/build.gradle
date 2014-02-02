@@ -1,6 +1,17 @@
-task grunt(type: Exec) {
+task test(type: Exec) {
   group = 'UI'
   commandLine 'grunt', 'test'
+  standardOutput = new ByteArrayOutputStream()
+
+  //extension method stopTomcat.output() can be used to obtain the output:
+  ext.output = {
+    return standardOutput.toString()
+  }
+}
+
+task dist(type: Exec) {
+  group = 'UI'
+  commandLine 'grunt'
   standardOutput = new ByteArrayOutputStream()
 
   //extension method stopTomcat.output() can be used to obtain the output:

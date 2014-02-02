@@ -1,1 +1,7 @@
 apply plugin: 'scala'
+
+dependencies {
+  compile "org.scala-lang:scala-library:$scalaVersion"
+  compile "org.scala-lang:scala-compiler:$scalaVersion"
+  testCompile "org.scala-lang:scala-library:$scalaVersion"
+}
