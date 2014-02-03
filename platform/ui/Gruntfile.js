@@ -7,7 +7,7 @@
 // use this if you want to recursively match all subfolders:
 // 'test/spec/**/*.js'
 
-module.exports = function (grunt) {
+module.exports = function(grunt) {
 
   // Load grunt tasks automatically
   require('load-grunt-tasks')(grunt);
@@ -113,12 +113,12 @@ module.exports = function (grunt) {
     clean: {
       dist: {
         files: [{
-          dot: true,
-          src: [
+            dot: true,
+            src: [
             '.tmp',
             '<%= yeoman.dist %>/*',
             '!<%= yeoman.dist %>/.git*'
-          ]
+            ]
         }]
       },
       server: '.tmp'
@@ -131,10 +131,10 @@ module.exports = function (grunt) {
       },
       dist: {
         files: [{
-          expand: true,
-          cwd: '.tmp/styles/',
-          src: '{,*/}*.css',
-          dest: '.tmp/styles/'
+            expand: true,
+            cwd: '.tmp/styles/',
+            src: '{,*/}*.css',
+            dest: '.tmp/styles/'
         }]
       }
     },
@@ -146,8 +146,6 @@ module.exports = function (grunt) {
         ignorePath: '<%= yeoman.app %>/'
       }
     },
-
-
 
 
 
@@ -188,20 +186,20 @@ module.exports = function (grunt) {
     imagemin: {
       dist: {
         files: [{
-          expand: true,
-          cwd: '<%= yeoman.app %>/images',
-          src: '{,*/}*.{png,jpg,jpeg,gif}',
-          dest: '<%= yeoman.dist %>/images'
+            expand: true,
+            cwd: '<%= yeoman.app %>/images',
+            src: '{,*/}*.{png,jpg,jpeg,gif}',
+            dest: '<%= yeoman.dist %>/images'
         }]
       }
     },
     svgmin: {
       dist: {
         files: [{
-          expand: true,
-          cwd: '<%= yeoman.app %>/images',
-          src: '{,*/}*.svg',
-          dest: '<%= yeoman.dist %>/images'
+            expand: true,
+            cwd: '<%= yeoman.app %>/images',
+            src: '{,*/}*.svg',
+            dest: '<%= yeoman.dist %>/images'
         }]
       }
     },
@@ -214,10 +212,10 @@ module.exports = function (grunt) {
           removeOptionalTags: true
         },
         files: [{
-          expand: true,
-          cwd: '<%= yeoman.dist %>',
-          src: ['*.html', 'views/{,*/}*.html'],
-          dest: '<%= yeoman.dist %>'
+            expand: true,
+            cwd: '<%= yeoman.dist %>',
+            src: ['*.html', 'views/{,*/}*.html'],
+            dest: '<%= yeoman.dist %>'
         }]
       }
     },
@@ -227,10 +225,10 @@ module.exports = function (grunt) {
     ngmin: {
       dist: {
         files: [{
-          expand: true,
-          cwd: '.tmp/concat/scripts',
-          src: '*.js',
-          dest: '.tmp/concat/scripts'
+            expand: true,
+            cwd: '.tmp/concat/scripts',
+            src: '*.js',
+            dest: '.tmp/concat/scripts'
         }]
       }
     },
@@ -246,11 +244,11 @@ module.exports = function (grunt) {
     copy: {
       dist: {
         files: [{
-          expand: true,
-          dot: true,
-          cwd: '<%= yeoman.app %>',
-          dest: '<%= yeoman.dist %>',
-          src: [
+            expand: true,
+            dot: true,
+            cwd: '<%= yeoman.app %>',
+            dest: '<%= yeoman.dist %>',
+            src: [
             '*.{ico,png,txt}',
             '.htaccess',
             '*.html',
@@ -258,12 +256,12 @@ module.exports = function (grunt) {
             'bower_components/**/*',
             'images/{,*/}*.{webp}',
             'fonts/*'
-          ]
+            ]
         }, {
-          expand: true,
-          cwd: '.tmp/images',
-          dest: '<%= yeoman.dist %>/images',
-          src: ['generated/*']
+            expand: true,
+            cwd: '.tmp/images',
+            dest: '<%= yeoman.dist %>/images',
+            src: ['generated/*']
         }]
       },
       styles: {
@@ -325,7 +323,7 @@ module.exports = function (grunt) {
   });
 
 
-  grunt.registerTask('serve', function (target) {
+  grunt.registerTask('serve', function(target) {
     if (target === 'dist') {
       return grunt.task.run(['build', 'connect:dist:keepalive']);
     }
@@ -340,7 +338,7 @@ module.exports = function (grunt) {
     ]);
   });
 
-  grunt.registerTask('server', function () {
+  grunt.registerTask('server', function() {
     grunt.log.warn('The `server` task has been deprecated. Use `grunt serve` to start a server.');
     grunt.task.run(['serve']);
   });
@@ -374,5 +372,13 @@ module.exports = function (grunt) {
     'newer:jshint',
     'test',
     'build'
+  ]);
+
+  grunt.registerTask('watching', [
+    'clean:server',
+    'bower-install',
+    'concurrent:server',
+    'autoprefixer',    
+    'watch'
   ]);
 };
