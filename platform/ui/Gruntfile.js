@@ -54,6 +54,10 @@ module.exports = function(grunt) {
           '.tmp/styles/{,*/}*.css',
           '<%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
         ]
+      },
+      less: {
+        files: ['<%=yeoman.app%>/resources/**/*.less'],
+        tasks: ['less']
       }
     },
 
@@ -98,7 +102,7 @@ module.exports = function(grunt) {
         reporter: require('jshint-stylish')
       },
       all: [
-        'Gruntfile.js',
+        // 'Gruntfile.js',
         '<%= yeoman.app %>/scripts/{,*/}*.js'
       ],
       test: {
@@ -113,12 +117,12 @@ module.exports = function(grunt) {
     clean: {
       dist: {
         files: [{
-            dot: true,
-            src: [
+          dot: true,
+          src: [
             '.tmp',
             '<%= yeoman.dist %>/*',
             '!<%= yeoman.dist %>/.git*'
-            ]
+          ]
         }]
       },
       server: '.tmp'
@@ -271,16 +275,28 @@ module.exports = function(grunt) {
         src: '{,*/}*.css'
       }
     },
+    less: {
+      dist: {
+        options: {
+          paths: ['<%= yeoman.app %>/resources/css']
+        },
+        files: {
+          '<%= yeoman.app %>/resources/css/style.css': '<%= yeoman.app %>/resources/css/_style.less',
+        }
+      }
+    },
 
     // Run some tasks in parallel to speed up the build process
     concurrent: {
       server: [
+        'less',
         'copy:styles'
       ],
       test: [
         'copy:styles'
       ],
       dist: [
+        'less',
         'copy:styles',
         'imagemin',
         'svgmin'
