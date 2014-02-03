@@ -1,0 +1,59 @@
+task runDev(type: Exec){
+  group = 'UI'
+  description ='Run dev in nodejs server'
+  
+  commandLine 'grunt', 'serve'
+
+  //store the output instead of printing to the console:
+  standardOutput = new ByteArrayOutputStream()
+
+  //extension method stopTomcat.output() can be used to obtain the output:
+  ext.output = {
+    return standardOutput.toString()
+  }
+}
+
+task runDist(type: Exec){
+  group = 'UI'
+  description ='Run dist in nodejs server'
+  
+  commandLine 'grunt', 'serve', '--target=dist'
+
+  //store the output instead of printing to the console:
+  standardOutput = new ByteArrayOutputStream()
+
+  //extension method stopTomcat.output() can be used to obtain the output:
+  ext.output = {
+    return standardOutput.toString()
+  }
+}
+
+task test(type: Exec){
+  group = 'UI'
+  description ='Run test'
+  
+  commandLine 'grunt', 'test'
+
+  //store the output instead of printing to the console:
+  standardOutput = new ByteArrayOutputStream()
+
+  //extension method stopTomcat.output() can be used to obtain the output:
+  ext.output = {
+    return standardOutput.toString()
+  }
+}
+
+task build(type:Exec){
+  group = 'UI'
+  description ='Build UI'
+  
+  commandLine 'grunt'
+
+  //store the output instead of printing to the console:
+  standardOutput = new ByteArrayOutputStream()
+
+  //extension method stopTomcat.output() can be used to obtain the output:
+  ext.output = {
+    return standardOutput.toString()
+  }  
+}
