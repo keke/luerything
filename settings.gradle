@@ -1,0 +1,7 @@
+// settings.gradle
+
+rootProject.name = "luerything"
+
+include "platform"
+include "platform:services"
+include "platform:ui"

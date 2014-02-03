@@ -1,0 +1,12 @@
+//build.gradle
+
+apply from: 'gradle/extra-tasks.gradle'
+
+allprojects {
+  apply plugin: 'eclipse'
+  apply plugin: 'idea'
+}
+
+subprojects{
+
+}
