@@ -16,16 +16,30 @@
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css({.tmp,app}) resources/css/style.css -->
     <link rel="stylesheet" href="resources/css/style.css">
+    <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.css"/>
     <!-- endbuild -->
+
+    <script type="text/javascript">
+        var __modules = [
+            {
+                name: 'ltShared',
+                location: '../modules/shared'
+            }
+        ];
+        var __cfg = {}
+    </script>
 </head>
 <body>
 <!--[if lt IE 7]>
 <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
     your browser</a> to improve your experience.</p>
 <![endif]-->
-
+<header id="app-masthead" lt-masthead></header>
 <!-- Add your site or application content here -->
-<div class="container" ng-view=""></div>
+<div class="app-main container-fluid" id="app-main" lt-height-mon="#app-masthead">
+    <div lg-app-nav></div>
+    <div class="app-view" ng-cloak ng-view></div>
+</div>
 
 <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
 <!-- <script>
