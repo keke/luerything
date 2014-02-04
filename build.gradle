@@ -2,6 +2,10 @@
 
 apply from: 'gradle/extra-tasks.gradle'
 
+buildscript{
+  
+}
+
 allprojects {
   apply plugin: 'eclipse'
   apply plugin: 'idea'
@@ -9,6 +13,9 @@ allprojects {
 
 subprojects{
   group = rootProject.group
+  repositories {
+    mavenCentral()
+  }
 }
 
 task test(dependsOn:[':platform:ui:test',':platform:services:test']){
