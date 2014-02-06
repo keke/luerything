@@ -13,6 +13,7 @@
       me.$get = [function () {
         return {
           getApps: function () {
+            return apps;
           }
         };
       }];
