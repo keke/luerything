@@ -5,6 +5,6 @@
   'use strict';
 
   define(['angular', 'ltShared'], function (angular) {
-    return angular.module('ltNote', ['ltShared']);
+    return angular.module('ltNote', ['ltShared', 'ngRoute']);
   });
 })(define);
