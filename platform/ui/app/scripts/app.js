@@ -1,8 +1,8 @@
 (function (define) {
   'use strict';
 
-  define(['angular', 'jquery', 'ngRoute'], function (angular, $) {
-    return angular.module('ltApp', ['ngRoute'])
+  define(['angular', 'jquery', 'ngRoute','ltShared'], function (angular, $) {
+    return angular.module('ltApp', ['ngRoute', 'ltShared'])
         .directive('ltHeightMon', ['$window', '$timeout', function ($window, $timeout) {
           return{
             replace: false,

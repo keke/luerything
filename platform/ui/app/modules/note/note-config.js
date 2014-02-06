@@ -4,13 +4,15 @@
 (function (define) {
   'use strict';
 
-  define(['./note'], function (ltNote) {
-    return ltNote.config(['AppConfigProvider', function (AppConfigProvider) {
+  define(['./note', 'ltShared/i18next'], function (ltNote) {
+    return ltNote.config(['AppConfigProvider', 'i18nextServiceProvider', function (AppConfigProvider, i18nextServiceProvider) {
       AppConfigProvider.addAppConfig({
         entryLink: '/note',
         name: 'note',
-        iconCls:'fa fa-file'
+        nameKey: 'note:appName',
+        iconCls: 'fa fa-file'
       });
+      i18nextServiceProvider.addNamespace('note');
     }]);
   });
 })(define);

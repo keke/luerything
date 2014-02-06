@@ -3,9 +3,14 @@
  */
 (function (define) {
   'use strict';
-  define(['app', 'masthead', 'app-nav'], function (ltApp) {
-    return ltApp.constant('templateRoot', 'scripts').config(['$locationProvider', function ($locationProvider) {
-      $locationProvider.html5Mode(true).hashPrefix('!');
-    }]);
+  define(['app', 'masthead', 'app-nav', 'ltShared/i18next'], function (ltApp) {
+    return ltApp.constant('templateRoot', 'scripts').config(['$locationProvider', 'i18nextServiceProvider',
+          function ($locationProvider, i18nextServiceProvider) {
+            $locationProvider.html5Mode(true).hashPrefix('!');
+            i18nextServiceProvider.addNamespace('lt');
+          }]).run(['i18nextService',
+          function (i18nextService) {
+            i18nextService.init();
+          }]);
   });
 })(define);
