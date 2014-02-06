@@ -5,7 +5,6 @@
   'use strict';
 
   requirejs.config({
-    baseUrl: '../modules',
     paths: {
       bootstrapAll: '../bower_components/bootstrap/dist/js/bootstrap'
     },
@@ -16,6 +15,6 @@
       }
     }
   });
-  requirejs(['angular', 'bootstrapAll', './shared/shared'], function () {
-  });
+  requirejs(['ltShared/shared']);
 })(requirejs);
+
