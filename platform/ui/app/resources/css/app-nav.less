@@ -5,9 +5,35 @@
   max-width: 50%;
   width: 140px;
   background-color: @gray-dark;
-  color: @gray-light;
+  .app-title, .panel {
+    color: @gray-light;
+  }
   .panel-shortcuts {
     background-color: transparent;
     border-radius: 0;
+    .panel-heading {
+      padding-left: 2px;
+      .panel-title {
+        text-transform: uppercase;
+      }
+    }
+  }
+
+  .app-list {
+    list-style: none;
+    padding-left: 0;
+    .app-entry {
+      padding-left: 5px;
+      .app-icon {
+        &.fa {
+          font-size: 30px;
+        }
+      }
+      .app-title {
+        display: inline-block;
+        height: 30px;
+        vertical-align: middle;
+      }
+    }
   }
 }

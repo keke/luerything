@@ -6,8 +6,11 @@
         <div class="panel-body"></div>
     </div>
     <ul class="app-list">
-        <li ng-repeat="app in apps" class="app-entry">
-            <a ng-href="app.entryLink"><span class="app-title">{{ app.name }}</span></a>
+        <li ng-repeat="app in apps" class="app-entry app-entry-{{app.name}}">
+            <a ng-href="{{app.entryLink}}">
+                <i ng-if="app.iconCls" class="app-icon fa-fw {{app.iconCls}}"></i>
+                <span class="app-title">{{ app.name }}</span>
+            </a>
         </li>
     </ul>
 </div>
