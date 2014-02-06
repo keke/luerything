@@ -1,0 +1,13 @@
+<div class="lt-app-nav">
+    <div class="panel-shortcuts panel">
+        <div class="panel-heading">
+            <h3 class="panel-title">Shortcuts</h3>
+        </div>
+        <div class="panel-body"></div>
+    </div>
+    <ul class="app-list">
+        <li ng-repeat="app in apps" class="app-entry">
+            <a ng-href="app.entryLink"><span class="app-title">{{ app.name }}</span></a>
+        </li>
+    </ul>
+</div>
