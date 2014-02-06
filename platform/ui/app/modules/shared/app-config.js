@@ -9,6 +9,7 @@
       var me = this;
       var apps = [];
       me.addAppConfig = function (cfg) {
+        apps.push(cfg);
       };
       me.$get = [function () {
         return {

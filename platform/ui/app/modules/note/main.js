@@ -7,5 +7,7 @@
   requirejs.config({
 
   });
-  requirejs(['ltNote/note']);
+  requirejs(['ltNote/note', 'ltNote/note-config'], function (app) {
+    return app;
+  });
 })(requirejs);
