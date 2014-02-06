@@ -35,6 +35,7 @@
     packages: packages,
     paths: {
       jquery: '../bower_components/jquery/jquery',
+      jqueryUi: '../bower_components/jquery-ui/ui/jquery-ui',
       angular: '../bower_components/angular/angular',
       ngRoute: '../bower_components/angular-route/angular-route'
     },
@@ -43,7 +44,8 @@
         exports: 'angular',
         deps: ['jquery']
       },
-      ngRoute: ['angular']
+      ngRoute: ['angular'],
+      jqueryUi: ['jquery']
     }
   });
   //boot luerything.app
