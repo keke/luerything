@@ -3,7 +3,7 @@
  */
 (function (define) {
   'use strict';
-  define(['app', 'masthead', 'app-nav', 'ltShared/i18next'], function (ltApp) {
+  define(['app', 'masthead', 'app-nav', 'ltShared/i18next', 'ltShared/cfg'], function (ltApp) {
     return ltApp.constant('templateRoot', 'scripts').config(['$locationProvider', 'i18nextServiceProvider',
           function ($locationProvider, i18nextServiceProvider) {
             $locationProvider.html5Mode(true).hashPrefix('!');

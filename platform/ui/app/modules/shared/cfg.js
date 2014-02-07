@@ -4,12 +4,13 @@
 (function (define) {
   'use strict';
 
-  define(['angular', './shared'], function (angular, ltShared) {
-    return ltShared.provider('ConfigService', ['$q', function ($q) {
+  define(['angular', './shared', 'vertxbus'], function (angular, ltShared, EventBus) {
+
+    return ltShared.provider('ConfigService', [function () {
       var me = this;
       var cfgStore = null;
-      var initDefer = $q.defer();
-      me.$get = ['baseCfg', function (baseCfg) {
+      me.$get = ['baseCfg', '$q', function (baseCfg, $q) {
+        var initDefer = $q.defer();
         cfgStore = angular.extend({}, baseCfg);
         return {
           init: function () {
