@@ -21,17 +21,20 @@
     <!-- endbuild -->
 
     <script type="text/javascript">
-        var __modules = [
-            {
+        var __modules = {
+            ltShared: {
                 name: 'ltShared',
                 location: '../modules/shared'
             },
-            {
+            ltNote: {
                 name: 'ltNote',
                 location: '../modules/note'
             }
-        ];
-        var __cfg = {};
+        };
+        var __cfg = {
+            eventBus: true,
+            apiRoot: './api'
+        };
     </script>
 </head>
 <body>

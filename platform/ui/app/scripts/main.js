@@ -12,8 +12,8 @@
   var packages = [];
   var deps = ['angular', 'app', 'app-config'];
   var modules = ['ltApp'];
-  for (var i = 0, m = __modules.length; i < m; i++) {
-    var module = __modules[i];
+  for (var key in __modules) {
+    var module = __modules[key];
     if (typeof module === 'string') {
       packages.push({
         name: module,

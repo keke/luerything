@@ -12,9 +12,15 @@
           };
 
 
-          me.$get = [function () {
+          me.$get = ['$q', function ($q) {
+            var defer = $q.defer();
             return{
               addNamespace: function (ns) {
+                var d = $q.defer();
+                i18n.loadNamespace(ns, function () {
+                  d.resolve();
+                });
+                return d.promise;
               },
               init: function () {
                 i18n.init({
@@ -26,7 +32,10 @@
                   ns: {
                     namespaces: nss
                   }
+                }, function () {
+                  defer.resolve();
                 });
+                return defer.promise;
               }
             }
           }]
