@@ -3,3 +3,4 @@
 rootProject.name = "luerything"
 
 include "ui"
+include "web"
