@@ -1,6 +1,7 @@
 {
   "port": 8899,
   "web_root": "../../../../ui/app",
-  "caching": true,
-  "route_matcher": true
+  "caching": false,
+  "route_matcher": true,
+  "bridge": true
 }
