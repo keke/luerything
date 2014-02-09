@@ -17,12 +17,3 @@ subprojects{
     mavenCentral()
   }
 }
-
-task test(dependsOn:[':platform:ui:test',':platform:services:test']){
-  group = 'Luerything'
-  description = ''
-}
-
-task build(dependsOn:[':platform:ui:build', ':platform:services:build']){
-  group = 'Luerything'
-}
