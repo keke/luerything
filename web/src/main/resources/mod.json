@@ -1,0 +1,4 @@
+{
+  "main": "net.luerything.web.VertxMain",
+  "auto-redeploy": true
+}

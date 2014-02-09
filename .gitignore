@@ -9,3 +9,4 @@ build/
 *.sublime-project
 *.sublime-workspace
 mods
+vertx_classpath.txt

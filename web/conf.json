@@ -1,0 +1,8 @@
+{
+  "webModule": "io.vertx~mod-web-server~2.0.0-final",
+  "webModuleCfg": {
+    "port": 8899,
+    "web_root": "../../../../ui/app",
+    "caching": true
+  }
+}
