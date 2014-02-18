@@ -13,12 +13,12 @@
         me.$get = ['baseCfg', '$q', 'EventBus',
           function(baseCfg, $q, EventBus) {
             var initDefer = $q.defer();
-            EventBus.init().then(function() {
-              EventBus.getEventBus().registerHandler('luerything.config', function(msg) {
-                initDefer.resolve(msg.data);
-              });
-              EventBus.getEventBus().send('luerything.config', {
+            EventBus.init().then(function() {              
+              EventBus.getEventBus().send('luerything.config.load', {
                 action: 'load'
+              }, function(msg) {
+                console.log('Got config', msg);
+                initDefer.resolve();
               });
             });
             cfgStore = angular.extend({}, baseCfg);

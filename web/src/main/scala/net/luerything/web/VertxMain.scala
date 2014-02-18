@@ -5,17 +5,17 @@ import org.vertx.java.core.AsyncResult
 import org.vertx.java.core.AsyncResultHandler
 import java.io.File
 
-
+/**
+ */
 class VertxMain extends BusModBase {
+  /**
+   */
   override def start() {
-    super.start();
-    val fs = vertx.fileSystem()
-    var webCfg = getOptionalObjectConfig("webModuleCfg", null)
+    super.start();    
+    var webCfg = getOptionalObjectConfig("webModuleConfig", null)
 
-    container.deployModule(getMandatoryStringConfig("webModule"), webCfg, 1, new AsyncResultHandler[String]{
-      def handle(result:AsyncResult[String]){
-
-      }
-    });
+    container.deployVerticle("net.luerything.web.WebServer", webCfg, 1);
+    println("To deploy config service")
+    container.deployVerticle("net.luerything.service.impl.ConfigServiceImpl", 1)
   }
 }

@@ -1,7 +1,14 @@
 {
-  "port": 8899,
-  "web_root": "../../../../ui/app",
-  "caching": false,
-  "route_matcher": true,
-  "bridge": true
+  "webModuleConfig": {
+    "port": 8899,
+    "web_root": "../../../../ui/app",
+    "caching": false,
+    "route_matcher": true,
+    "bridge": true,
+    "inbound_permitted": [
+      {
+        "address": "luerything.config.load"
+      }
+    ]
+  }
 }
