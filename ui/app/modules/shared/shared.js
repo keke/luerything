@@ -4,8 +4,8 @@
 (function(define) {
   'use strict';
 
-  define(['angular', 'vertxbus'], function(angular, EventBus) {
-    return angular.module('ltShared', []).service('EventBus', ['$q', 'baseCfg',
+  define(['angular', 'vertxbus', 'ngRoute'], function(angular, EventBus) {
+    return angular.module('ltShared', ['ngRoute']).service('EventBus', ['$q', 'baseCfg',
       function($q, baseCfg) {
         var me = this;
         var defer = $q.defer();

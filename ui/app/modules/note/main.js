@@ -1,18 +1,10 @@
 /**
  * @author keke
  */
-(function (requirejs) {
+(function (define) {
   'use strict';
 
-  requirejs.config({
-    paths: {
-      ngRoute: '../bower_components/angular-route/angular-route'
-    },
-    shims: {
-      ngRoute: ['angular']
-    }
+  define(['angular', 'ltShared'], function (angular) {
+    return angular.module('ltNote', ['ltShared', 'ngRoute']);
   });
-  requirejs(['ltNote/note', 'ltNote/note-config'], function (app) {
-    return app;
-  });
-})(requirejs);
+})(define);

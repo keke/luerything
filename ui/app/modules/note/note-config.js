@@ -1,12 +1,12 @@
 /**
+ * note-config
  * @author keke
- */
-(function (define) {
+ */ (function(define) {
   'use strict';
 
-  define(['./note', 'ltShared/i18next'], function (ltNote) {
+  define(['./note', 'ltShared/i18next'], function(ltNote) {
     return ltNote.config(['AppConfigProvider', 'i18nextServiceProvider', '$routeProvider',
-      function (AppConfigProvider, i18nextServiceProvider, $routeProvider) {
+      function(AppConfigProvider, i18nextServiceProvider, $routeProvider) {
         AppConfigProvider.addAppConfig({
           entryLink: '#!/note',
           name: 'note',

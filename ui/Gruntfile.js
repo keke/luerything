@@ -101,8 +101,12 @@ module.exports = function(grunt) {
         jshintrc: '.jshintrc',
         reporter: require('jshint-stylish')
       },
-      all: [
-        // 'Gruntfile.js',
+      all: [ // 'Gruntfile.js',
+
+
+
+
+
         '<%= yeoman.app %>/scripts/{,*/}*.js'
       ],
       test: {
@@ -117,12 +121,12 @@ module.exports = function(grunt) {
     clean: {
       dist: {
         files: [{
-          dot: true,
-          src: [
+            dot: true,
+            src: [
             '.tmp',
             '<%= yeoman.dist %>/*',
             '!<%= yeoman.dist %>/.git*'
-          ]
+            ]
         }]
       },
       server: '.tmp'
@@ -335,6 +339,27 @@ module.exports = function(grunt) {
         configFile: 'karma.conf.js',
         singleRun: true
       }
+    },
+    requirejs: {
+      dist: {
+        options: {
+          baseUrl: "app/scripts",
+          mainConfigFile: "scripts/min.cfg.js",
+          out: "app/scripts/all.min.js",
+          packages: [
+            {
+              name: 'ltShared',
+              location: '../modules/shared'
+            },
+            {
+              name: 'ltNote',
+              location: '../modules/note'
+            }
+          ],
+          include: ['main', 'app', 'app-config', 'ltNote', 'ltNote/note-config'],
+          optimize: 'none'
+        }
+      }
     }
   });
 
@@ -394,7 +419,7 @@ module.exports = function(grunt) {
     'clean:server',
     'bower-install',
     'concurrent:server',
-    'autoprefixer',    
+    'autoprefixer',
     'watch'
   ]);
 };
