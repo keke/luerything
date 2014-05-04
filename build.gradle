@@ -1,6 +1,3 @@
-//build.gradle
-
-apply from: 'gradle/extra-tasks.gradle'
 
 buildscript {
   repositories {

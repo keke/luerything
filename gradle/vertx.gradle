@@ -28,6 +28,8 @@ def cpSeparator = System.getProperty("path.separator")
 // a shared Maven local and using Gradle wrapper concurrently
 loadProperties("${System.getProperty('user.home')}/.gradle/gradle.properties")
 
+apply from: "gradle/maven.gradle"
+
 group = modowner
 archivesBaseName = modname
 
@@ -40,6 +42,7 @@ project.ext.moduleName = "$modowner~$modname~$version"
 
 configurations {
   provided
+  compile.extendsFrom provided
   testCompile.extendsFrom provided
 }
 
@@ -97,16 +100,16 @@ sourceSets {
   }
 }
 
-task copyMod( type:Copy, dependsOn: 'classes', description: 'Assemble the module into the local mods directory' ) {
+task copyMod(type: Copy, dependsOn: 'classes', description: 'Assemble the module into the local mods directory') {
   into "build/mods/$moduleName"
   from compileJava
   from 'src/main/resources'
-  into( 'lib' ) {
+  into('lib') {
     from configurations.compile
   }
 }
 
-task modZip( type: Zip, dependsOn: 'pullInDeps', description: 'Package the module .zip file') {
+task modZip(type: Zip, dependsOn: 'pullInDeps', description: 'Package the module .zip file') {
   group = 'vert.x'
   classifier = "mod"
   description = "Assembles a vert.x module"
@@ -119,6 +122,10 @@ task sourceJar(type: Jar) {
   description = 'Builds a source jar artifact suitable for maven deployment.'
   classifier = 'sources'
   from sourceSets.main.java
+}
+
+javadoc {
+  classpath = configurations.compile + configurations.provided
 }
 
 task javadocJar(type: Jar) {
@@ -177,11 +184,11 @@ def doInit() {
   if (!cpFile.exists()) {
     cpFile.createNewFile();
     String defaultCp =
-      "src/main/resources\r\n" +
-      "bin\r\n" +
-      "out/production/${project.name}\r\n" +
-      "out/test/${project.name}\r\n" +
-      "build/deps\r\n";
+        "src/main/resources\r\n" +
+            "bin\r\n" +
+            "out/production/${project.name}\r\n" +
+            "out/test/${project.name}\r\n" +
+            "build/deps\r\n";
     cpFile << defaultCp;
   }
   def args = ['create-module-link', moduleName]
