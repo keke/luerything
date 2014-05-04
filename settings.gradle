@@ -1,6 +1,4 @@
 // settings.gradle
 
-rootProject.name = "luerything"
+rootProject.name = "org.luerything"
 
-include "ui"
-include "web"
