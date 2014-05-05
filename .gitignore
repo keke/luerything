@@ -8,5 +8,6 @@ build/
 *.iws
 *.sublime-project
 *.sublime-workspace
-mods
+mods/
 vertx_classpath.txt
+out/

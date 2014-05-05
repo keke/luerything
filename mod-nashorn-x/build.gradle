@@ -1,0 +1,76 @@
+import org.vertx.java.platform.impl.cli.Starter
+
+apply from: "$rootDir/gradle/vertx.gradle"
+
+runModArgs = "$projectDir/src/test/resources/conf-test.json"
+
+buildscript {
+  repositories {
+
+    mavenCentral()
+  }
+  dependencies {
+    classpath "io.vertx:vertx-core:$vertxVersion"
+    classpath "io.vertx:vertx-platform:$vertxVersion"
+    classpath "io.vertx:vertx-hazelcast:$vertxVersion"
+    classpath "log4j:log4j:$log4jVersion"
+    classpath "org.slf4j:slf4j-log4j12:$slf4jVersion"
+
+    // Extra classpath for Vert.x
+
+    // Users can be Vert.x platform classpath files (e.g. langs.properties) in either src/main/platform_lib
+    // or src/main/resources/platform_lib (if they want it in the module for fatjars)
+    classpath files(['src/main/platform_lib'])
+    classpath fileTree(dir: 'src/main/platform_lib', includes: ['*.jar', '*.zip'])
+    classpath files(['src/main/resources/platform_lib'])
+    classpath fileTree(dir: 'src/main/resources/platform_lib', includes: ['*.jar', '*.zip'])
+  }
+}
+
+def configurePom(def pom) {
+  pom.project {}
+}
+
+def setSysProps() {
+  System.setProperty("vertx.clusterManagerFactory", "org.vertx.java.spi.cluster.impl.hazelcast.HazelcastClusterManagerFactory")
+  System.setProperty("vertx.langs.nashornx", "net.luerything~mod-nashorn-x~0.0.1-SNAPSHOT:net.luerything.vertx" +
+      ".nashorn.NashornVerticleFactory")
+  System.setProperty("vertx.langs..js", "nashornx")
+  System.setProperty("org.vertx.logger-delegate-factory-class-name", "org.vertx.java.core.logging.impl.SLF4JLogDelegateFactory")
+  String modsDir = System.getenv("VERTX_MODS")
+  if (modsDir == null) {
+    modsDir = "$projectDir/build/mods";
+  }
+  System.setProperty("vertx.mods", modsDir)
+}
+
+task testJs(description: 'Test JS', dependsOn: collectDeps) << {
+  if (System.getProperty('DEBUG', 'false') == 'true') {
+    jvmArgs '-Xdebug',
+        '-Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=9009'
+  }
+  setSysProps()
+  // We also init here - this means for single module builds the user doesn't have to explicitly init -
+  // they can just do runMod
+//  doInit()
+  args = ['run', "$projectDir/./src/test/js/test.js"]
+  def args2 = runModArgs.split("\\s+")
+  args.addAll(args2)
+  Starter.main(args as String[])
+}
+
+def doInit() {
+  File cpFile = new File("vertx_classpath.txt")
+  if (!cpFile.exists()) {
+    cpFile.createNewFile();
+    String defaultCp =
+        "src/main/resources\r\n" +
+            "bin\r\n" +
+            "out/production/${project.name}\r\n" +
+            "out/test/${project.name}\r\n" +
+            "build/deps\r\n";
+    cpFile << defaultCp;
+  }
+  def args = ['create-module-link', moduleName]
+  Starter.main(args as String[])
+}

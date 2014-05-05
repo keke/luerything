@@ -1,0 +1,5 @@
+{
+  "system": true,
+  "resident": true,
+  "includes": "io.vertx~lang-js~1.0.0"
+}

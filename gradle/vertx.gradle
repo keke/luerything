@@ -28,15 +28,15 @@ def cpSeparator = System.getProperty("path.separator")
 // a shared Maven local and using Gradle wrapper concurrently
 loadProperties("${System.getProperty('user.home')}/.gradle/gradle.properties")
 
-apply from: "gradle/maven.gradle"
+apply from: "$rootDir/gradle/maven.gradle"
 
 group = modowner
 archivesBaseName = modname
 
 defaultTasks = ['assemble']
 
-sourceCompatibility = '1.7'
-targetCompatibility = '1.7'
+sourceCompatibility = '1.8'
+targetCompatibility = '1.8'
 
 project.ext.moduleName = "$modowner~$modname~$version"
 

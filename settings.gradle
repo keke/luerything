@@ -1,4 +1,7 @@
 // settings.gradle
+include 'mod-nashorn-x'
 
-rootProject.name = "org.luerything"
+rootProject.name = "net.luerything"
+
+
 
