@@ -12,5 +12,9 @@
         return null;
       }
     }
+  };
+
+  if (__exposeGlobal__) {
+    _global.__global__ = _global;
   }
 })(this);
