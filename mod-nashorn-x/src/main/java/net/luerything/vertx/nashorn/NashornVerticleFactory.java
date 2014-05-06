@@ -62,7 +62,9 @@ public class NashornVerticleFactory implements VerticleFactory
 
   }
 
-  ScriptEngine getEngine(){
+
+  ScriptEngine getEngine()
+  {
     return engine;
   }
 }

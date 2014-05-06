@@ -51,4 +51,9 @@ public class Module implements Serializable
   {
     this.exports = exports;
   }
+
+  public Module init(Object exports){
+    this.exports = exports;
+    return this;
+  }
 }

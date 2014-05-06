@@ -5,6 +5,8 @@ import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.vertx.java.busmods.BusModBase;
+import org.vertx.java.core.json.JsonObject;
+import org.vertx.java.platform.Container;
 import org.vertx.java.platform.PlatformManagerException;
 
 import javax.script.*;
@@ -24,15 +26,17 @@ public class NashornVerticle extends BusModBase
   private static final String MODULE_HEADER = "(function(require,module){\r\"use strict\";\r";
   private static final String MODULE_FOOTER = "\rif(typeof vertxStop==='function' && module.setVertxStop){ module" +
       ".setVertxStop(vertxStop)}" +
-      "\rreturn module;})(__require__(__thisModule__),__thisModule__)";
+      "\rreturn module;})(__require__(__thisModule__),__thisModule__.init({}))";
   public static final String JVERTX = "__jvertx";
   public static final String JCONTAINER = "__jcontainer";
+  public static final String EXPOSE_GLOBAL = "__exposeGlobal__";
   private String main;
   private ScriptEngine engine;
   private ScriptContext context;
   private ClassLoader cl;
   private RootModule root;
   private HashMap<URI, Module> moduleCache = new HashMap<>();
+  private ScriptLoader scriptLoader;
 
   public NashornVerticle(final String main, final ScriptEngine engine, final ClassLoader cl)
   {
@@ -45,11 +49,13 @@ public class NashornVerticle extends BusModBase
   public void start()
   {
     super.start();
+    initScriptLoader(container, cl);
     context = new SimpleScriptContext();
     Bindings bindings = engine.createBindings();
     context.setBindings(bindings, ScriptContext.ENGINE_SCOPE);
     bindings.put(JVERTX, vertx);
     bindings.put(JCONTAINER, container);
+    bindings.put(EXPOSE_GLOBAL, container.config().getBoolean("exposeGlobal", false));
     URL url = cl.getResource("js/__boot__.js");
     if (LOG.isDebugEnabled())
     {
@@ -61,6 +67,9 @@ public class NashornVerticle extends BusModBase
     } catch (ScriptException | IOException e)
     {
       throw new PlatformManagerException("Unable to boot nashorn engine", e);
+    } finally
+    {
+      bindings.remove(EXPOSE_GLOBAL);
     }
     if (LOG.isDebugEnabled())
     {
@@ -99,9 +108,9 @@ public class NashornVerticle extends BusModBase
         module = new Module();
       }
       module.setId(moduleId);
-      context.setAttribute("__thisModule__", module, ScriptContext.ENGINE_SCOPE);
       module.setUri(moduleUri);
-      String script = MODULE_HEADER + IOUtils.toString(url) + MODULE_FOOTER;
+      context.setAttribute("__thisModule__", module, ScriptContext.ENGINE_SCOPE);
+      final String script = MODULE_HEADER + IOUtils.toString(url) + MODULE_FOOTER;
       module = (Module) engine.eval(script, context);
       moduleCache.put(moduleUri, module);
       return module;
@@ -143,6 +152,27 @@ public class NashornVerticle extends BusModBase
     return engine;
   }
 
+  private void initScriptLoader(Container container, ClassLoader cl)
+  {
+    JsonObject config = container.config();
+    String className = config.getString("scriptLoaderFactory");
+    if (LOG.isDebugEnabled())
+    {
+      LOG.debug("To initialize scriptLoader {}", className);
+    }
+    if (className != null)
+    {
+      try
+      {
+        Class<ScriptLoaderFactory> clz = (Class<ScriptLoaderFactory>) cl.loadClass(className);
+        scriptLoader = clz.newInstance().create();
+      } catch (ReflectiveOperationException e)
+      {
+        throw new PlatformManagerException("Unable to create ScriptLoader from " + className, e);
+      }
+    }
+  }
+
   public static class RootModule extends Module
   {
 
@@ -176,7 +206,16 @@ public class NashornVerticle extends BusModBase
   {
     if (!FilenameUtils.getExtension(path).equals(""))
     {
-      return cl.getResource(path);
+      URL url = null;
+      if (scriptLoader != null)
+      {
+        url = scriptLoader.load(path);
+      }
+      if (url == null)
+      {
+        url = cl.getResource(path);
+      }
+      return url;
     }
     //try .js first
     URL url = tryLoad(path + ".js");
