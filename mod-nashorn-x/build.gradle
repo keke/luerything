@@ -1,6 +1,7 @@
 import org.vertx.java.platform.impl.cli.Starter
 
 apply from: "$rootDir/gradle/vertx.gradle"
+//apply plugin: "jacoco"
 
 runModArgs = "$projectDir/src/test/resources/conf-test.json"
 

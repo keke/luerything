@@ -8,10 +8,8 @@ import org.vertx.java.platform.PlatformManagerException;
 import org.vertx.java.platform.Verticle;
 import org.vertx.java.platform.VerticleFactory;
 
-import javax.script.*;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.URL;
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
 
 /**
  * @author keke
@@ -28,7 +26,6 @@ public class NashornVerticleFactory implements VerticleFactory
   @Override
   public void init(final Vertx vertx, final Container container, final ClassLoader cl)
   {
-
     this.vertx = vertx;
     this.cl = cl;
     this.container = container;
@@ -38,7 +35,6 @@ public class NashornVerticleFactory implements VerticleFactory
     {
       throw new PlatformManagerException("Nashorn engine not found, probably you are not using Java 8 or later");
     }
-
   }
 
   @Override
@@ -64,5 +60,9 @@ public class NashornVerticleFactory implements VerticleFactory
   public void close()
   {
 
+  }
+
+  ScriptEngine getEngine(){
+    return engine;
   }
 }

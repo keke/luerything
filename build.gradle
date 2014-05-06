@@ -19,6 +19,7 @@ subprojects {
   sourceCompatibility = '1.8'
   dependencies {
     compile "org.slf4j:slf4j-api:$slf4jVersion"
+    testCompile "org.mockito:mockito-all:$mockitoVersion"
   }
 }
 

@@ -1,5 +1,6 @@
 package net.luerything.vertx.nashorn;
 
+import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,8 +10,10 @@ import org.vertx.java.platform.PlatformManagerException;
 import javax.script.*;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.HashMap;
 
 /**
  * @author keke
@@ -29,12 +32,12 @@ public class NashornVerticle extends BusModBase
   private ScriptContext context;
   private ClassLoader cl;
   private RootModule root;
+  private HashMap<URI, Module> moduleCache = new HashMap<>();
 
   public NashornVerticle(final String main, final ScriptEngine engine, final ClassLoader cl)
   {
     this.main = main;
     this.engine = engine;
-
     this.cl = cl;
   }
 
@@ -43,7 +46,8 @@ public class NashornVerticle extends BusModBase
   {
     super.start();
     context = new SimpleScriptContext();
-    Bindings bindings = context.getBindings(ScriptContext.ENGINE_SCOPE);
+    Bindings bindings = engine.createBindings();
+    context.setBindings(bindings, ScriptContext.ENGINE_SCOPE);
     bindings.put(JVERTX, vertx);
     bindings.put(JCONTAINER, container);
     URL url = cl.getResource("js/__boot__.js");
@@ -68,36 +72,38 @@ public class NashornVerticle extends BusModBase
 
   public Module require(String name, final Module parent)
   {
-    if (!name.endsWith(".js"))
-    {
-      name += ".js";
-    }
-    URL url = cl.getResource(name);
+    String moduleId = resolveModuleId(name, parent);
+    URL url = tryLoad(moduleId);
     if (LOG.isDebugEnabled())
     {
-      LOG.debug("To require module={} by parent module={}", url, parent == null ? "ROOT" : parent.getId());
+      LOG.debug("To require module={} by parent ={}", moduleId, parent == null ? "ROOT" : parent.getId());
     }
     if (url == null)
     {
       return null;
     }
-    Module module = null;
-    if (parent == null)
-    {
-      module = new RootModule();
-      root = (RootModule) module;
-    } else
-    {
-      module = new Module();
-    }
-
-    context.setAttribute("__thisModule__", module, ScriptContext.ENGINE_SCOPE);
     try
     {
-      module.setUri(url.toURI());
-      module.setId(name);
+      URI moduleUri = url.toURI();
+      Module module = moduleCache.get(moduleUri);
+      if (module != null)
+      {
+        return module;
+      }
+      if (parent == null)
+      {
+        module = new RootModule();
+        root = (RootModule) module;
+      } else
+      {
+        module = new Module();
+      }
+      module.setId(moduleId);
+      context.setAttribute("__thisModule__", module, ScriptContext.ENGINE_SCOPE);
+      module.setUri(moduleUri);
       String script = MODULE_HEADER + IOUtils.toString(url) + MODULE_FOOTER;
       module = (Module) engine.eval(script, context);
+      moduleCache.put(moduleUri, module);
       return module;
     } catch (ScriptException e)
     {
@@ -127,6 +133,16 @@ public class NashornVerticle extends BusModBase
     }
   }
 
+  ScriptContext getContext()
+  {
+    return context;
+  }
+
+  ScriptEngine getEngine()
+  {
+    return engine;
+  }
+
   public static class RootModule extends Module
   {
 
@@ -136,5 +152,38 @@ public class NashornVerticle extends BusModBase
     {
       this.vertxStop = vertxStop;
     }
+  }
+
+  private String resolveModuleId(String name, Module parent)
+  {
+    name = FilenameUtils.removeExtension(name);
+    if (parent == null)
+    {
+      return name;
+    }
+    if (name.startsWith("."))
+    {
+      //this is a relative path
+      return FilenameUtils.concat(parent.getId(), name);
+    } else
+    {
+      return name;
+    }
+  }
+
+
+  private URL tryLoad(String path)
+  {
+    if (!FilenameUtils.getExtension(path).equals(""))
+    {
+      return cl.getResource(path);
+    }
+    //try .js first
+    URL url = tryLoad(path + ".js");
+    if (url == null)
+    {
+      url = tryLoad(path + ".coffee");
+    }
+    return url;
   }
 }
