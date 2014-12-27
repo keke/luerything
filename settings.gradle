@@ -1,7 +1,0 @@
-// settings.gradle
-include 'mod-nashorn-x'
-
-rootProject.name = "net.luerything"
-
-
-
