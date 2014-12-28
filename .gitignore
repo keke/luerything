@@ -1,5 +1,6 @@
 .idea/
 .gradle/
+.git/
 *.iml
 project/
 target/
