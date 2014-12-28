@@ -1,9 +1,4 @@
 project.description = "All projects of Luerything"
-//project.name = 'Luerything All'
-
-task helloWorld << {
-    println "Hello World $version"
-}
 
 allprojects {
     apply plugin: "idea"
@@ -12,9 +7,18 @@ allprojects {
     }
 }
 
-subprojects {
-
+configure(subprojects.findAll { it.name != "ui" }) {
     apply plugin: "java"
-//    apply plugin: "scala"
+    apply plugin: "scala"
     sourceCompatibility = 1.8
+    dependencies {
+        compile group: 'org.scala-lang', name: 'scala-library-all', version: "$scalaVersion"
+        testCompile group: 'junit', name: 'junit', version: "$junitVersion"
+    }
 }
+
+//subprojects {
+//    apply plugin: "java"
+////    apply plugin: "scala"
+//    sourceCompatibility = 1.8
+//}

@@ -1,1 +1,1 @@
-include "services", "platform"
+include "services", "platform", "ui", "core"
