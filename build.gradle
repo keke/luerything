@@ -1,0 +1,17 @@
+task helloWorld << {
+    println "Hello World $version"
+}
+
+allprojects {
+    apply plugin: "idea"
+    repositories {
+        mavenCentral()
+    }
+}
+
+subprojects {
+
+    apply plugin: "java"
+    apply plugin: "scala"
+    sourceCompatibility = 1.8
+}
