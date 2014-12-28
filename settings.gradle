@@ -1,1 +1,1 @@
-include "services", "platform", "ui", "core"
+include "services", "services:calibre", "services:calibre-impl", "platform", "ui", "core", "utilities"
