@@ -3,7 +3,8 @@
  */
 @XmlSchema(namespace = "http://www.idpf.org/2007/opf",
         xmlns = {@XmlNs(prefix = "dc",
-                namespaceURI = "http://purl.org/dc/elements/1.1/")},
+                namespaceURI = "http://purl.org/dc/elements/1.1/"),
+                @XmlNs(prefix = "opf", namespaceURI = "http://www.idpf.org/2007/opf")},
         elementFormDefault = XmlNsForm.QUALIFIED)
 package net.luerything.calibre.metadata;
 

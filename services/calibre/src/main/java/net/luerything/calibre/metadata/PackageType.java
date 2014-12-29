@@ -9,10 +9,19 @@ import java.io.Serializable;
 @XmlRootElement(name = "package")
 @XmlAccessorType(XmlAccessType.PROPERTY)
 public class PackageType implements Serializable {
-
     private MetadataType metadata;
     private String version;
+    private String uniqueIdentify;
     private GuideType guide;
+
+    @XmlAttribute(name = "unique-identifier")
+    public String getUniqueIdentify() {
+        return uniqueIdentify;
+    }
+
+    public void setUniqueIdentify(String uniqueIdentify) {
+        this.uniqueIdentify = uniqueIdentify;
+    }
 
     @XmlElement(name = "guide")
     public GuideType getGuide() {

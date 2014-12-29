@@ -16,6 +16,6 @@ object PlayMetadataReader {
     val jaxb = JAXBContext.newInstance("net.luerything.calibre.metadata")
     val calibrePackage = jaxb.createUnmarshaller().unmarshal(new InputSource(PlayMetadataReader.getClass.getResourceAsStream("/metadata.opf"))).asInstanceOf[PackageType]
 
-    println(calibrePackage.getVersion + calibrePackage.getMetadata.getTitle + calibrePackage.getGuide)
+    println(calibrePackage.getVersion + calibrePackage.getMetadata.getTitle + calibrePackage.getMetadata.getDate)
   }
 }
