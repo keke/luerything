@@ -20,7 +20,7 @@ configure(subprojects.findAll { it.name != "ui" }) {
     compile group: 'org.scala-lang', name: 'scala-library-all', version: "$scalaVersion"
     compile group: 'org.slf4j', name: 'slf4j-api', version: "$slf4jVersion"
 
-//    testCompile "org.scalatest:scalatest_2.11:$scalaTestVersion"
+    testCompile "org.scalatest:scalatest_2.11:$scalaTestVersion"
     testCompile group: 'org.testng', name: 'testng', version: "$testngVersion"
   }
   test {
