@@ -22,6 +22,15 @@ public class MetadataType implements Serializable {
   private String description;
   private List<CreatorType> creators;
 
+  public static Identifier getIdentifier(MetadataType metadataType, String scheme) {
+    for (Identifier id : metadataType.getIdList()) {
+      if (id.getScheme().equals(scheme)) {
+        return id;
+      }
+    }
+    return null;
+  }
+
   @XmlElement(name = "creator")
   public List<CreatorType> getCreators() {
     return creators;

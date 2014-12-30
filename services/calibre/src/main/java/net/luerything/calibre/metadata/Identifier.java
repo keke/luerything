@@ -12,7 +12,7 @@ public class Identifier implements Serializable {
   private String idType;
   private String value;
 
-  @XmlAttribute(name = "scheme")
+  @XmlAttribute(name = "scheme", namespace = "http://www.idpf.org/2007/opf")
   public String getScheme() {
     return scheme;
   }

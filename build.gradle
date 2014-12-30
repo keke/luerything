@@ -4,11 +4,12 @@ allprojects {
   apply plugin: "idea"
   repositories {
     mavenLocal()
-    mavenCentral()
-    maven {
-      name 'ibiblios'
-      url 'http://mirrors.ibiblio.org/pub/mirrors/maven2'
-    }
+    jcenter()
+//    mavenCentral()
+//    maven {
+//      name 'ibiblios'
+//      url 'http://mirrors.ibiblio.org/pub/mirrors/maven2'
+//    }
   }
 }
 
@@ -20,6 +21,7 @@ configure(subprojects.findAll { it.name != "ui" }) {
     compile group: 'org.scala-lang', name: 'scala-library-all', version: "$scalaVersion"
     compile group: 'org.slf4j', name: 'slf4j-api', version: "$slf4jVersion"
 
+    testCompile  "org.mockito:mockito-core:$mockitoVersion"
     testCompile "org.scalatest:scalatest_2.11:$scalaTestVersion"
     testCompile group: 'org.testng', name: 'testng', version: "$testngVersion"
   }
