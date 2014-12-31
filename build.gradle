@@ -16,17 +16,27 @@ allprojects {
 configure(subprojects.findAll { it.name != "ui" }) {
   apply plugin: "java"
   apply plugin: "scala"
+  apply plugin: "com.github.maiflai.scalatest"
   sourceCompatibility = 1.8
   dependencies {
     compile group: 'org.scala-lang', name: 'scala-library-all', version: "$scalaVersion"
     compile group: 'org.slf4j', name: 'slf4j-api', version: "$slf4jVersion"
 
-    testCompile  "org.mockito:mockito-core:$mockitoVersion"
+    testCompile "org.mockito:mockito-core:$mockitoVersion"
     testCompile "org.scalatest:scalatest_2.11:$scalaTestVersion"
-    testCompile group: 'org.testng', name: 'testng', version: "$testngVersion"
+//    testCompile group: 'org.testng', name: 'testng', version: "$testngVersion"
+    testRuntime 'org.pegdown:pegdown:1.1.0'
   }
   test {
     useTestNG()
+  }
+}
+buildscript {
+  repositories {
+    jcenter()
+  }
+  dependencies {
+    classpath "com.github.maiflai:gradle-scalatest:$scalatestPluginVersion"
   }
 }
 

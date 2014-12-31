@@ -1,9 +1,7 @@
 package net.luerything.calibre.impl
 
-import java.io.{InputStream, File}
-import javax.xml.bind.{JAXBContext, JAXB}
+import javax.xml.bind.JAXBContext
 
-import net.luerything.calibre.impl.util.MetadataReader
 import net.luerything.calibre.metadata.PackageType
 import org.xml.sax.InputSource
 

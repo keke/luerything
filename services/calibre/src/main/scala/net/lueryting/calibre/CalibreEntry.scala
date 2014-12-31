@@ -1,9 +1,10 @@
 package net.lueryting.calibre
 
-import java.io.{File, FileReader}
+import java.io.{File, FileFilter, FileReader}
 import javax.xml.bind.JAXBContext
 
 import net.luerything.calibre.metadata.PackageType
+import org.apache.commons.io.FilenameUtils
 import org.xml.sax.InputSource
 
 /**
@@ -20,14 +21,29 @@ class CalibreEntry(private val folder: File) {
   lazy val calibrePackage: PackageType = {
     CalibreEntry.load(this)
   }
-
+  /**
+   * The cover (JPG) of the book
+   */
   lazy val cover: Option[File] = {
     val f = new File(folder, "cover.jpg")
     if (f.exists()) Option(f) else None
   }
 
-  def getBooks(filter: => Boolean): List[File] = null
+  def getAvailableFormats: Array[String] = {
+    val fileName = calibrePackage.getMetadata.getTitle
+    folder.listFiles(new FileFilter() {
+      override def accept(pathname: File): Boolean = {
+        pathname.getName.startsWith(fileName)
+      }
+    }).map(f => {
+      FilenameUtils.getExtension(f.getName).toUpperCase
+    })
+  }
 
+  def getBook(fmt: String): Option[File] = {
+    val f = new File(folder, fmt.toLowerCase)
+    if (f.exists()) Some(f) else None
+  }
 }
 
 object CalibreEntry {
