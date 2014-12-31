@@ -1,10 +1,25 @@
 package net.luerything.calibre.impl
 
-import net.lueryting.calibre.CalibreRepositoryService
+import java.io.{File, FileFilter}
+
+import net.lueryting.calibre.{CalibreEntry, CalibreRepositoryService}
+import org.slf4j.LoggerFactory
 
 /**
  * @author keke
  */
-class CalibreRepositoryServiceImpl extends CalibreRepositoryService {
+class CalibreRepositoryServiceImpl(val root: File) extends CalibreRepositoryService {
+  private val log = LoggerFactory.getLogger(classOf[CalibreRepositoryServiceImpl])
 
+  override def getAllEntries(): Stream[CalibreEntry] = {
+    root.listFiles(new FileFilter {
+      override def accept(pathname: File): Boolean = {
+        pathname.isDirectory
+      }
+    }).flatMap { f =>
+      f.listFiles.map(new CalibreEntry(_))
+    }.toStream
+  }
+
+  override def addWatch(): Unit = ???
 }
