@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='utf-8'?>
+<package xmlns="http://www.idpf.org/2007/opf" unique-identifier="uuid_id">
+    <metadata xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:opf="http://www.idpf.org/2007/opf">
+        <dc:identifier opf:scheme="calibre" id="calibre_id">1246</dc:identifier>
+        <dc:identifier opf:scheme="uuid" id="uuid_id">edfb328e-b701-41dc-a468-92352e472509</dc:identifier>
+        <dc:title>Functional JavaScript: Introducing Functional Programming With Underscore.js</dc:title>
+        <dc:creator opf:file-as="Michael Fogus" opf:role="aut">Michael Fogus</dc:creator>
+        <dc:contributor opf:file-as="calibre" opf:role="bkp">calibre (1.0.0) [http://calibre-ebook.com]</dc:contributor>
+        <dc:date>2013-06-03T07:12:42.620011+00:00</dc:date>
+        <dc:description>How can you overcome JavaScript language oddities and unsafe features? With this book, you’ll learn how to create code that’s beautiful, safe, and simple to understand and test by using JavaScript’s functional programming support. Author Michael Fogus shows you how to apply functional-style concepts with Underscore.js, a JavaScript library that facilitates functional programming techniques. Sample code is available on GitHub at https://github.com/funjs/book-source.  Fogus helps you think in a functional way to help you minimize complexity in the programs you build. If you’re a JavaScript programmer hoping to learn functional programming techniques, or a functional programmer looking to learn JavaScript, this book is the ideal introduction. Use applicative programming techniques with first-class functions Understand how and why you might leverage variable scoping and closures Delve into higher-order functions—and learn how they take other functions as arguments for maximum advantage Explore ways to compose new functions from existing functions Get around JavaScript’s limitations for using recursive functions Reduce, hide, or eliminate the footprint of state change in your programs Practice flow-based programming with chains and functional pipelines Discover how to code without using classes</dc:description>
+        <dc:publisher>"O'Reilly Media, Inc."</dc:publisher>
+        <dc:identifier opf:scheme="GOOGLE">0Fr_lxPGM6QC</dc:identifier>
+        <dc:identifier opf:scheme="ISBN">9781449360795</dc:identifier>
+        <dc:language>eng</dc:language>
+        <dc:subject>VBScript</dc:subject>
+        <dc:subject>COMPUTERS / Programming Languages / JavaScript</dc:subject>
+        <dc:subject>JavaScript</dc:subject>
+        <dc:subject>Computers</dc:subject>
+        <dc:subject>Programming Languages</dc:subject>
+        <meta content="{&quot;Michael Fogus&quot;: &quot;&quot;}" name="calibre:author_link_map"/>
+        <meta content="8" name="calibre:rating"/>
+        <meta content="2013-09-04T12:56:58+00:00" name="calibre:timestamp"/>
+        <meta content="Functional JavaScript: Introducing Functional Programming With Underscore.js" name="calibre:title_sort"/>
+    </metadata>
+    <guide>
+        <reference href="cover.jpg" type="cover" title="Cover"/>
+    </guide>
+</package>

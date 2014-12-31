@@ -5,5 +5,4 @@ package net.lueryting.calibre
  * @author keke
  */
 trait CalibreRepositoryService {
-
 }
