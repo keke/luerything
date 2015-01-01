@@ -13,6 +13,6 @@ trait CalibreRepositoryService {
 
   def watch(listener: RepositoryListener)
 
-  def stop
+  def close
 }
 

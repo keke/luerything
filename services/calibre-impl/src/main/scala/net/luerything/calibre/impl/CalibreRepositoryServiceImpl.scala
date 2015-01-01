@@ -13,8 +13,8 @@ import org.slf4j.LoggerFactory
  * @author keke
  */
 class CalibreRepositoryServiceImpl(val root: File) extends CalibreRepositoryService {
-  println("Root repisotyr is " + root)
   private val log = LoggerFactory.getLogger(classOf[CalibreRepositoryServiceImpl])
+  log.debug("Root folder of calibre repository is {}", root)
   private val watching = new AtomicBoolean(true)
   private val watchService = FileSystems.getDefault.newWatchService()
 
@@ -30,13 +30,12 @@ class CalibreRepositoryServiceImpl(val root: File) extends CalibreRepositoryServ
     import scala.collection.JavaConversions._
 
     override def run(): Unit = {
-      println("Watch thread starting " + watching)
+      log.info("To start Watch thread for calibre repository at {}", root)
       while (watching.get()) {
-        println("to pull events " + watching)
+        log.debug("To pull events")
         watchKey.pollEvents().toList.foreach { e =>
           val kind = e.kind()
           log.debug("Repository was updated, kind={}", kind)
-          println("Repostory was updated " + kind + ", context=" + e.context())
 
           if (kind != OVERFLOW) {
             watchListeners.fire().update(new RepositoryEvent(CalibreRepositoryServiceImpl.this,
@@ -44,12 +43,12 @@ class CalibreRepositoryServiceImpl(val root: File) extends CalibreRepositoryServ
           }
         }
         if (!watchKey.reset()) {
-          println("To set watch false")
+
           watching.set(false)
         } else
           Thread.sleep(1000)
       }
-      println("Watch thread stopped " + watching)
+      log.info("Watch thread stopped ")
     }
   }, "CalibreRepositoryWatcher")
 
@@ -58,10 +57,12 @@ class CalibreRepositoryServiceImpl(val root: File) extends CalibreRepositoryServ
   override def getAllEntries(): Stream[CalibreEntry] = {
     root.listFiles(new FileFilter {
       override def accept(pathname: File): Boolean = {
-        pathname.isDirectory
+        pathname.isDirectory && !pathname.isHidden
       }
     }).flatMap { f =>
-      f.listFiles.map(new CalibreEntry(_))
+      f.listFiles(new FileFilter {
+        override def accept(pathname: File): Boolean = !pathname.isHidden
+      }).map(new CalibreEntry(_))
     }.toStream
   }
 
@@ -69,8 +70,8 @@ class CalibreRepositoryServiceImpl(val root: File) extends CalibreRepositoryServ
     watchListeners.addListener(listener)
   }
 
-  override def stop: Unit = {
-    println("To stop repository service")
+  override def close: Unit = {
+    log.info("To stop repository service")
     watching.set(false)
     watchKey.cancel()
     watchService.close()

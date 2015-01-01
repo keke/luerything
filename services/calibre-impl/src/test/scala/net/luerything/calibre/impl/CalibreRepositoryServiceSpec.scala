@@ -17,7 +17,7 @@ class CalibreRepositoryServiceSpec extends FlatSpec with Matchers with MockitoSu
   "CalibreRepositoryService" should "get all entries" in {
     val calRepo = new CalibreRepositoryServiceImpl(new File(getClass.getResource("/test-calibre-root").toURI))
     calRepo.getAllEntries() should have size 4
-    calRepo.stop
+    calRepo.close
   }
 
 
@@ -31,7 +31,7 @@ class CalibreRepositoryServiceSpec extends FlatSpec with Matchers with MockitoSu
     FileUtils.touch(new File(file, "test"))
     println(new File(file, "test").exists() + " has been touched")
     Thread.sleep(10000)
-    calRepo.stop
+    calRepo.close
     verify(mockListener, times(1)).update(any[RepositoryEvent])
   }
 }
