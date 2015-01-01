@@ -11,5 +11,8 @@ trait CalibreRepositoryService {
 
   def getAllEntries(): Stream[CalibreEntry]
 
-  def addWatch()
+  def watch(listener: RepositoryListener)
+
+  def stop
 }
+
