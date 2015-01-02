@@ -1,2 +1,2 @@
 include "services", "services:calibre", "services:calibre-impl",
-    "platform", "ui", "core", "utilities", "platform:mongodb"
+    "platform", "ui", "core", "utilities", "platform:mongodb", "platform:mongodb-impl"
