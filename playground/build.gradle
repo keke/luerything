@@ -1,0 +1,6 @@
+version '0.0.1-SNAPSHOT'
+
+dependencies {
+  compile "org.apache.tika:tika-core:$tikaVersion"
+  compile "org.apache.tika:tika-parsers:$tikaVersion"
+}

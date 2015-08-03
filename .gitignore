@@ -12,4 +12,6 @@ build/
 mods/
 vertx_classpath.txt
 out/
-build/
+.vagrant/
+data/
+package.box
